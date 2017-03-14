@@ -4,43 +4,58 @@
 
 Template.home.hooks({
   created: () => {
-    let template = Template.instance();
+    let  template = Template.instance(),
+        noWeather = Session.get( "weather" ) == null;
 
-    template.latLng = new ReactiveVar( null );
-    template.city = new ReactiveVar( null );
-    template.zip = new ReactiveVar( null );
-    template.inches = new ReactiveVar( null );
+    template.isLoading = new ReactiveVar( true );
+
+
+
+
+    template.autorun( () => {
+      let location = Geolocation.latLng();
+
+      if ( noWeather ) Modules.client.getWeather( location );
+    });
   },
   rendered: () => {},
   destroyed: () => {}
 });
 
 Template.home.helpers({
-  location: () => {
-    let template = Template.instance(),
-        latLng   = Geolocation.latLng(),
-        city     = null,
-        zip      = null;
+  // loading: () =>
+  //   Session.get( "weather") == null,
+  weather: () =>
+    Session.get( "weather"),
+  yesterday: () =>
+    Session.get( "weather" ).yesterday,
+  today: () =>
+    Session.get( "weather" ).today,
+  hour: () =>
+    Session.get( "weather" ).hour,
+  formatDate: ( date ) =>
+    moment.unix( date ).format("dddd, MMMM Do YYYY"),
+  toWeatherIcon: ( icon ) => {
+    let snow    = "snowflake-cold",
+        snowing = icon.includes( "snow" ),
+        rain    = "raindrop",
+        raining = icon.includes( "rain" ),
+        cloud   = "cloudy",
+        cloudy  = icon.includes( "cloud" ),
+        sun     = "day-sunny",
+        sunny   = icon.includes( "sun" ),
+        string;
 
-    template.latLng.set( latLng );
-    // template.city.set( city );
-    // template.zip.set( zip );
+    if (sunny) {
+      string = sun;
+    } else if (cloudy) {
+      string = cloud;
+    } else if (raining) {
+      string = rain;
+    } else if (snowing) {
+      string = snow;
+    }
 
-    Meteor.call( 'Wunderground', { lat: 1, lng: 1 }, ( error, response ) => {
-      if ( !error ) {
-        console.log( response );
-        template.inches.set( response );
-      } else {
-        throw new Meteor.Error( error, 'ERROR.' );
-      }
-    });
-
-
+    return string;
   },
-  inches: () => {
-    let inches = Template.instance().inches.get();
-
-    console.log( inches );
-  },
-
 });
