@@ -1,17 +1,16 @@
+
+
 @import "variables";
-@import "bootstrap/variables";
 
 @import "components/box-shadow";
 @import "components/panel-heading";
 @import "components/font-awesome";
 @import "components/dropdown-hover";
-// @import "components/awesome-bootstrap-checkbox";
 
-// @import 'fonts/roboto';
 
 @import '{reywood:bootstrap3-sass}/bootstrap';
 
-
+@import 'templates/global';
 
 
 @import "tools/extends";
