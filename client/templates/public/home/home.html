@@ -3,31 +3,53 @@
 -->
 
 <template name="home">
-  {{ location }}
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <div class="card">
-          <div class="card-block">
-              <h4 class="card-title">
-                Past Day
-              </h4>
-              <p class="card-text">
-                How Many Inches? {{ inches }}
-              </p>
+  {{ #if weather }}
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Yesterday
           </div>
+          <div class="panel-body">
+            {{ #with yesterday }}
+              <div> precip: {{ precip }} </div>
+              <div> rain: {{ rain }} </div>
+              <div> snow: {{ snow }} </div>
+              <div> snowdepth: {{ snowdepth }} </div>
+              <div> snowfall: {{ snowfall }} </div>
+            {{ /with }}
+          </div>
+        </div>
+      </div>
+      {{ #with today }}
+        <div class="col-xs-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Today: {{ formatDate local_epoch }}
+            </div>
+            <div class="panel-body">
+              <div> <i class="wi wi-{{ toWeatherIcon icon }}"></i> </div>
+              <div> Past Hour: {{ precip_1hr_in }} </div>
+              <div> All Day: {{ precip_today_in }} </div>
+              <div> Conditions: {{ conditions }} </div>
+            </div>
+          </div>
+        </div>
+      {{ /with }}
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Future
+          </div>
+          <div class="panel-body">
+            {{ #with hour }}
+
+            {{ /with }}
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="card">
-          <div class="card-block">
-              <h4 class="card-title">
-                Past Hour
-              </h4>
-              <p class="card-text">
-                How Many Inches? {{ inches }}
-              </p>
-          </div>
-      </div>
-    </div>
-  </div>
+  {{ else }}
+    {{ > loading }}
+  {{ /if }}
 </template>

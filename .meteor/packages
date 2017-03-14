@@ -53,3 +53,5 @@ tsega:bootstrap3-datetimepicker@=3.1.3_3
 aldeed:autoform-bs-datetimepicker
 mdg:geolocation
 francocatena:compass
+http
+russ:weather-icons
