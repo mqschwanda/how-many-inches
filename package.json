@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Application description.",
   "scripts": {
-    "start": "meteor --settings settings-development.json",
-    "staging": "meteor deploy staging.meteor.com --settings settings-development.json",
+    "start": "meteor --settings settings.json",
+    "staging": "meteor deploy staging.meteor.com --settings settings.json",
     "production": "meteor deploy tmc-014-demo.meteor.com --settings settings-production.json"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "bcrypt": "^1.0.2"
+    "bcrypt": "^1.0.2",
+    "wundergroundnode": "^0.11.0"
   }
 }

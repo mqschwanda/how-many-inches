@@ -1,1 +1,15 @@
 
+footer.page-footer {
+    min-height: $navbar-height;
+    margin-top: 3em;
+    font-weight: 300;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .copyright {
+        text-align: left;
+    }
+    .github {
+        text-align: right;
+    }
+}
