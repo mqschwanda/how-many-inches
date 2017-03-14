@@ -1,0 +1,9 @@
+<template name="controlPanel">
+  {{ #if isInRole 'admin' }}
+    <div class="row">
+      <div class="col-xs-12">
+        {{ > users }}
+      </div>
+    </div>
+  {{ /if }}
+</template>
